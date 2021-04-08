@@ -4,7 +4,9 @@ const app = express();
 dotenv.config();
 
 app.get('/', (req, res) => {
-  res.send('Listo en el servidor');
+  res.json({
+    mensaje: 'Listo en el ersvidor de shopify',
+  })
 });
 
 app.listen(process.env.PORT, () => {
