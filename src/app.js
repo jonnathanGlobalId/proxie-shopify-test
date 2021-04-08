@@ -5,7 +5,7 @@ dotenv.config();
 
 app.get('/', (req, res) => {
   res.json({
-    mensaje: 'La base de la api esta funcionando'
+    mensaje: 'La base de la api'
   });
 });
 
