@@ -4,6 +4,7 @@ const app = express();
 const path = require('path');
 dotenv.config();
 
+//Rutas de las aplicaciones
 const proxyRoute = require('./routes/proxyRoutes');
 
 //utilizar Paginas estaticas
