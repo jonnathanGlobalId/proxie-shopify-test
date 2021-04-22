@@ -21,8 +21,15 @@ app.use(express.static('static'));
 app.get('/', (req, res) => {
   console.log(req.query);
   res.set('Content-Type', 'text/html')
-  .sendFile(__dirname + '/public');
+  .sendFile(__dirname + '/static');
 });
+
+app.get('/script', (req, res) => {
+  res.set('Content-Type', 'text/script')
+  .sendFile(__dirname + '/public/script-tag.js');
+});
+
+app.get('')
 
 
 app.listen(process.env.PORT, () => {
