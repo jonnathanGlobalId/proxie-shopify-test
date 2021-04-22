@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const app = express();
+const fs = require('fs');
 dotenv.config();
 
 //Habilitando el cors
@@ -25,8 +26,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/script', (req, res) => {
-  res.set('Content-Type', 'text/script')
-  .sendFile(__dirname + '/public/script-tag.js');
+  res.set('Content-Type', 'text/script');
+  fs.readFile(__dirname + '/public/script-tag.js');
 });
 
 app.get('')
