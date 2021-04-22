@@ -1,1 +1,5 @@
-console.log('Mandando el script tag al servidor de shopify')
+const data = () => {
+  console.log('Mandando el script tag al servidor de shopify');
+}
+
+data();
