@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 });
 
 app.get('/script', (req, res) => {
-  res.set('Content-Type', 'text/script');
-  fs.readFile(__dirname + '/public/script-tag.js');
+  // fs.readFile(__dirname + '/public/script-tag.js');
+  res.set('Content-Type', 'text/script').sendFile(__dirname + '/public/script-tag.js')
 });
 
 app.get('')
