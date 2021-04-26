@@ -13,22 +13,18 @@ let user_settings = {
 
 exports.getSettings = (req, res, next) => {
 
-  console.log(req);
-  console.log(req);
-
   res.json({
     mensaje: 'Obteniendo la información del usuario',
     data: user_settings,
   });
 }
 
-exports.changeSettings = () => {
-
-  console.log(req);
-  console.log(req);
-
+exports.changeSettings = (req, res) => {
+  const newSettings = req.body;
+  user_settings = newSettings;
+  console.log(req.body);
   res.json({
     mensaje: 'Cambiando la información del usuario',
-    data: user_settings,
+    data: newSettings,
   });
 }
