@@ -26,7 +26,7 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  fetch(`https://proxy-script-shopify.herokuapp.com/api/shopify-access?shop=${shop}`)
+  fetch(`https://proxy-script-shopify.herokuapp.com/api/user-auth?shop=${shop}`)
     .then((res) => res.json())
     .then((data) => console.log(data))
     .catch((e) => console.log(e))
