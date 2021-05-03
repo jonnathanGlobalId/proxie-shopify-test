@@ -7,6 +7,7 @@ let authInformation = {
 exports.sendAuthInfo = (req, res, next) => {
   const dataUser = req.body;
   authInformation = dataUser;
+  console.log(dataUser);
 
   res.json({
     mensaje: 'Se ha guardado el usuario exitosamente',
