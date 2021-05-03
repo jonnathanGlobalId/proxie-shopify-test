@@ -26,8 +26,12 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
+  fetch('https://proxy-script-shopify.herokuapp.com/api/shopify-access?shop=${shop}')
+    .then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((e) => console.log(e))
+
   fetch(`https://proxy-script-shopify.herokuapp.com/api/user-settings?shop=${shop}`)
-  // fetch(`https://cors-anywhere.herokuapp.com/https://ab17cf5a1264.ngrok.io/api/conditions?shop=${shop}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
