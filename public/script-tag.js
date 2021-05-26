@@ -22,6 +22,7 @@ function handler() {
   const arrayUrl = route.split('/');
 
   const shop = Shopify.shop;
+  
 
   console.log('Funcionando el script');
   console.log(Shopify)
