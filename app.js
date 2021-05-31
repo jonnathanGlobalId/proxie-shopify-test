@@ -10,6 +10,9 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
+//Conectar con la base de datos
+require('./src/db');
+
 //Rutas de las aplicaciones
 const apiRouter = require('./src/routes/apiRoute');
 
