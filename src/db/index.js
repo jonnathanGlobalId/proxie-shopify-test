@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const connectDb = async () => {
-  console.log('Intentando conectar a la base de datos')
   try {
     mongoose.connect('mongodb://localhost:27017', {
       dbName: 'GlobalId',

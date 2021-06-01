@@ -32,7 +32,6 @@ exports.getSettingsOwner = async (req, res) => {
       res.json({mensaje: 'No se encontro la tienda'})
       return
     }
-    console.log(settingsData); 
     res.json({
       mensaje: 'Obteniendo la informacion de configuraciones',
       data: settingsData,
