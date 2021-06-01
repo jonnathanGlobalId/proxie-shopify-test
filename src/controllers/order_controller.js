@@ -24,7 +24,7 @@ exports.createOrder = async (req, res) => {
 exports.getAllOrders = async (req, res) => {
   const idOwner = req.params;
   try {
-    const orders = await Order.find({ownerId: idOwner.id});
+    const orders = await Order.find({shopId: idOwner.id});
     res.json({
       mensaje: 'Obteniendo las ordenes',
       data: orders
@@ -38,13 +38,13 @@ exports.acceptOrder = async (req, res) => {
   const orderId = req.body;
   try {
     const orderExist = await Order.findOne({idOrder: orderId.idOrder});
-    if (!orderExist) {
-      res.json({mensaje: 'La orden no existe'})
+    if (!orderExist | orderExist.shopId.toString() !== orderId.shopId.toString()) {
+      res.json({mensaje: 'La orden no existe o no tienes permiso para modificar la orden'})
       return
     }
     await Order.findOneAndUpdate({idOrder: orderId.idOrder}, {status: 'APRROVE'}, {new: true})
     res.json({
-      mensaje: 'La orden ha sido aprobada'
+      mensaje: 'La orden ha sido aprobada con exito'
     });
 
   } catch (error) {
@@ -56,13 +56,13 @@ exports.rejectOrder = async (req, res) => {
   const orderId = req.body;
   try {
     const orderExist = await Order.findOne({idOrder: orderId.idOrder});
-    if (!orderExist) {
+    if (!orderExist | orderExist.shopId.toString() !== orderId.shopId.toString()) {
       res.json({mensaje: 'La orden no existe'})
       return
     }
     await Order.findOneAndUpdate({idOrder: orderId.idOrder}, {status: 'REJECT'}, {new: true})
     res.json({
-      mensaje: 'La orden ha sido rechazada'
+      mensaje: 'La orden ha sido rechazada con exito'
     });
 
   } catch (error) {

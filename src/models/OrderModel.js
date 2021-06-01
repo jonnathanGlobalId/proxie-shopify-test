@@ -18,9 +18,10 @@ const Order = new Schema({
     trim: true,
     default: Date.now
   },
-  ownerId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Owner'
+  shopId: {
+    type: String,
+    required: true,
+    trim: true
   },
   status: {
     type: String,

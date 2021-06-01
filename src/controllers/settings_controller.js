@@ -10,7 +10,7 @@ exports.createOwner = async (req, res) => {
       return
     }
     const newOwner = await Owner(ownerSettings).save();
-    await Settings({idShop: newOwner._id}).save();
+    await Settings({idShop: newOwner.shopId}).save();
     res.json({
       mensaje: `El usuario ${newOwner.shopifyDomain} ha sido creado`
     });
@@ -44,12 +44,12 @@ exports.getSettingsOwner = async (req, res) => {
 exports.changeSettings = async (req, res) => {
   const newSettings = req.body;
   try {
-    const settings = await Settings.findOne({idShop: newSettings.id});
+    const settings = await Settings.findOne({idShop: newSettings.idShop});
     if (!settings) {
       res.json({mensaje: 'No se encontro la tienda'})
       return
     }
-    await Settings.findOneAndUpdate({idShop: newSettings.id}, newSettings, {new: true})
+    await Settings.findOneAndUpdate({idShop: newSettings.idShop}, newSettings, {new: true})
     res.json({
       mensaje: 'Las configuraciones del usuario han cambiado',
     });

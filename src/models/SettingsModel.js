@@ -14,8 +14,9 @@ const SettingsSchema = Schema({
     default: false,
   },
   idShop: {
-    type: Schema.Types.ObjectId,
+    type: String,
     require: true,
+    trim: true
   }
 });
 
