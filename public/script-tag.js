@@ -5,7 +5,6 @@ script.onreadystatechange = handler;
 script.onload = handler;
 document.getElementsByTagName("head")[0].appendChild(script);
 
-
 function handler() {
 
   const body = $('body');

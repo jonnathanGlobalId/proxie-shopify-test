@@ -1,13 +1,13 @@
-const { expression } = require('joi');
 const Order = require('../models/OrderModel');
 
 exports.createOrder = async (req, res) => {
   const dataOrder = req.body;
+  console.log(dataOrder);
   try {
     //Verificar que la orden no exista
     const orderExist = await Order.findOne({idOrder: dataOrder.idOrder})
     if (orderExist) {
-      res.json({mensaje: 'La orden ya existe'})
+      res.status(500).send({mensaje: 'La orden ya existe'})
       return
     }
     

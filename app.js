@@ -29,12 +29,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/script', (req, res) => {
-  // fs.readFile(__dirname + '/public/script-tag.js');
-  res.set('Content-Type', 'text/script').sendFile(__dirname + '/public/script-tag.js')
+  // res.set('Content-Type', 'text/script').sendFile(__dirname + '/public/script-tag.js')
+  try {
+    const data = fs.readFileSync(__dirname + '/public/script-tag.js', 'utf-8');
+    res.set('Content-Type', 'text/script').send(data)
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 app.get('')
-
 
 app.listen(process.env.PORT, () => {
   console.log('servidor listo en el PORT', process.env.PORT);

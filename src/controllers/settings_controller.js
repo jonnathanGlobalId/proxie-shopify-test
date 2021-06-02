@@ -21,20 +21,15 @@ exports.createOwner = async (req, res) => {
 
 exports.getSettingsOwner = async (req, res) => {
   const settings = req.params;
+  console.log(settings);
   try {
-    const {maxAmmount, ammountCheck, addressCheck} = await Settings.findOne({idShop: settings.id});
-    const settingsData = {
-      maxAmmount,
-      ammountCheck,
-      addressCheck,
-    }
-    if (!settingsData) {
-      res.json({mensaje: 'No se encontro la tienda'})
-      return
+    const ownerShop = await Owner.findOne({owner_id: settings.id});
+    if (!ownerShop) {
+      res.status(404).send({mensaje: 'No se encontro la tienda'})
     }
     res.json({
       mensaje: 'Obteniendo la informacion de configuraciones',
-      data: settingsData,
+      data: ownerShop,
     })
   } catch (error) {
     console.log(error);
@@ -43,13 +38,15 @@ exports.getSettingsOwner = async (req, res) => {
 
 exports.changeSettings = async (req, res) => {
   const newSettings = req.body;
+  console.log(newSettings);
   try {
-    const settings = await Settings.findOne({idShop: newSettings.idShop});
+    const settings = await Owner.findOne({owner_id: newSettings.owner_id});
     if (!settings) {
-      res.json({mensaje: 'No se encontro la tienda'})
+      await Owner(newSettings).save();
+      res.json({mensaje: 'Se ha creado la tienda y se han actualizado las configuraciones'})
       return
     }
-    await Settings.findOneAndUpdate({idShop: newSettings.idShop}, newSettings, {new: true})
+    await Owner.findOneAndUpdate({idShop: newSettings.idShop}, newSettings, {new: true})
     res.json({
       mensaje: 'Las configuraciones del usuario han cambiado',
     });
