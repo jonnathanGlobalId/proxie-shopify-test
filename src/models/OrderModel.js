@@ -9,7 +9,6 @@ const CustomerSchema = Schema({
   name: {
     type: String,
     trim: true,
-    unique: true,
     required: true,
   },
   date_of_birth: {

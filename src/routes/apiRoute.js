@@ -5,7 +5,7 @@ const {getQuery} = require('../controllers/shopifyAccess');
 const {getauthInfo, sendAuthInfo} = require('../controllers/auth_controller');
 const {checkHmac} = require('../middlewares/verifyHmac');
 
-const {createOrder, getAllOrders, acceptOrder, rejectOrder} = require('../controllers/order_controller');
+const {createOrder, getAllOrders, acceptOrder, rejectOrder, changeStatusOrder} = require('../controllers/order_controller');
 
 router.get('/shopify-access', getQuery);
 
@@ -18,6 +18,7 @@ router.post('/create-order', createOrder);
 router.get('/orders/:id', getAllOrders);
 router.post('/order/acept', acceptOrder);
 router.post('/order/reject', rejectOrder);
+router.put('/order/change-status/:id', changeStatusOrder)
 
 //Ruta para el owner y cambiar los settings
 router.post('/create-owner', createOwner);
