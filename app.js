@@ -30,6 +30,7 @@ app.get('/', (req, res) => {
 
 app.get('/script', (req, res) => {
   // res.set('Content-Type', 'text/script').sendFile(__dirname + '/public/script-tag.js')
+  console.log('recibiendo informacion del script');
   try {
     const data = fs.readFileSync(__dirname + '/public/script-tag.js', 'utf-8');
     res.set('Content-Type', 'text/script').send(data)

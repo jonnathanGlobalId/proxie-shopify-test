@@ -44,6 +44,17 @@ function handler() {
         const customerName = Shopify?.checkout?.billing_address?.first_name;
 
         if (address || ammount) {
+          const createOrder = async () => {
+            try {
+              // fetch('http://localhost:8080/api/create-order', {
+              //   method: 'POST',
+              // })
+              console.log('Intentando mandar la order')
+            } catch (error) {
+              console.log(error);
+            }
+          }
+          createOrder();
       
           const contentSquare = $(
             `<div />`
