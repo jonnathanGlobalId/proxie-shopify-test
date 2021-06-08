@@ -24,8 +24,10 @@ app.use(express.static('static'));
 
 app.get('/', (req, res) => {
   console.log(req.query);
-  res.set('Content-Type', 'text/html')
-  .sendFile(__dirname + '/static');
+  // res.set('Content-Type', 'text/html')
+  // .sendFile(__dirname + '/static');
+  const ATTESTATION_PAGE_HTML = fs.readFileSync(__dirname + '/static/index.html', 'utf-8');
+  res.send(ATTESTATION_PAGE_HTML);
 });
 
 app.get('/script', (req, res) => {

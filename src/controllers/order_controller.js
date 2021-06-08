@@ -1,3 +1,4 @@
+const moment = require('moment');
 const Order = require('../models/OrderModel');
 
 exports.createOrder = async (req, res) => {
@@ -44,7 +45,11 @@ exports.changeStatusOrder = async (req, res) => {
       res.status(404).json({mensaje: 'La orden no existe'});
     }
 
+    console.log('Nueva informacion de la orden', dataStatus);
+
     //Cambiar el estado de la orden
+    idOrder.purchase_date = moment(idOrder.purchase_date).toISOString();
+    console.log(idOrder);
     await Order.findOneAndUpdate({order_id: idOrder.id}, dataStatus, {new: true});
     res.json({mensaje: 'Cambiando el status de la orden'})
   } catch (error) {

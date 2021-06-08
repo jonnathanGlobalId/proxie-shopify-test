@@ -29,6 +29,10 @@ const CustomerSchema = Schema({
     type: Date,
     default: Date.now,
   },
+  purchase_date: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 const Order = new Schema({
