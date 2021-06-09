@@ -54,7 +54,15 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  fetch(`http://localhost:8080/api/user-settings-owner/56128372888`)
+
+  const templateSettings = (settings) => {
+    if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
+      
+      const shopName = shop.split('.')[0];
+      const order_id = Shopify.checkout.order_id;
+      const timestamp = moment().toISOString()
+    
+      fetch(`http://localhost:8080/api/user-settings-owner/56128372888?shop=${shop}&hmac=${cryptoF(shopName, order_id)}&timestamp=${timestamp}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -62,9 +70,6 @@ function handler() {
       })
       .catch(e => console.log(e));
 
-
-  const templateSettings = (settings) => {
-    if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
         console.log('Desde la función', settings);
         console.log('Tenemos informacion del checkout');
         const address = Shopify.checkout.billing_address.address1 !== Shopify.checkout.shipping_address.address1 && settings?.different_address_enabled;
@@ -72,11 +77,6 @@ function handler() {
         const customerName = Shopify?.checkout?.billing_address?.first_name;
 
         if (address || ammount) {
-          const createOrder = () => {
-            const shopName = shop.split('.')[0];
-            console.log(shopName);
-            console.log('Información del hmac', cryptoF(shopName, Shopify.checkout.order_id));
-          }
       
           const contentSquare = $(
             `<div />`
@@ -126,9 +126,9 @@ function handler() {
           const handlePostInfo = async () => {
             try {
               console.log('Mandando la información a globalID', shop, route);
-              window.localStorage.setItem('link', `${shop}/${route}`);
-              console.log(`${shop}/${route}`);
-              window.location.replace("https://miguels-store-global.myshopify.com/apps/global-id");
+              window.localStorage.setItem('link', window.location.href);
+              const state = `${shopName}__${orderId}`;
+              window.location.replace(`https://connect.globalid.dev/?client_id=fd61f598-aeca-47a1-b379-d1356e4ecc50&response_type=code&scope=openid&redirect_uri=https://apps.globalid.dev/v1/shopify-plugin/order/add&login=false&acrc_id=86db6c94-443d-44af-ad9a-fa9e0eb3e1d2&state=${state}&nonce=<INSERT_NONCE_HERE>&document_id=tos pp`);
             } catch (error) {
               console.log(error);
             }
