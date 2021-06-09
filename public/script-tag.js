@@ -1,11 +1,29 @@
-const script = document.createElement("script");
-script.src = "https://code.jquery.com/jquery-3.4.1.min.js";
-script.type = "text/javascript";
-script.onreadystatechange = handler;
-script.onload = handler;
-document.getElementsByTagName("head")[0].appendChild(script);
+const scriptJquery = document.createElement("script");
+scriptJquery.src = "https://code.jquery.com/jquery-3.4.1.min.js";
+scriptJquery.type = "text/javascript";
+scriptJquery.onreadystatechange = handler;
+scriptJquery.onload = handler;
+
+const scriptMoment = document.createElement("script");
+scriptJquery.src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js";
+scriptJquery.type = "text/javascript";
+scriptJquery.onreadystatechange = handler;
+scriptJquery.onload = handler;
+
+const scriptCryptoJS = document.createElement("script");
+scriptJquery.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
+scriptJquery.type = "text/javascript";
+scriptJquery.onreadystatechange = handler;
+scriptJquery.onload = handler;
+
+document.getElementsByTagName("head")[0].appendChild(scriptJquery);
+document.getElementsByTagName("head")[0].appendChild(scriptMoment);
+document.getElementsByTagName("head")[0].appendChild(scriptCryptoJS);
 
 function handler() {
+
+  const epoch = (moment().unix()).toString();
+  console.log('Utilizando la libreria de moment', epoch);
 
   const body = $('body');
   const content = $('.content');
