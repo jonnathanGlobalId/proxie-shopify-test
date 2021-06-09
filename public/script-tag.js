@@ -8,12 +8,12 @@ const scriptMoment = document.createElement("script");
 scriptMoment.src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js";
 scriptMoment.type = 'text/javascript';
 
-const scriptCryptoJS = document.createElement("script");
+const scriptCrypto = document.createElement("script");
 scriptCrypto.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
 scriptCrypto.type = 'text/javascript';
 
 head.appendChild(scriptMoment);
-head.appendChild(scriptCryptoJS);
+head.appendChild(scriptCrypto);
 head.appendChild(scriptJquery);
 
 scriptMoment.onload = momentF;
