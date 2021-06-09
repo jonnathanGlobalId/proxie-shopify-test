@@ -26,8 +26,9 @@ function momentF() {
   return epoch;
 }
 
-function cryptoF(shop, order_id) {
-  var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, `${shop}__${order_id}`);
+function cryptoF(shop) {
+  const secret = 'ENCRYPTION_SECRET';
+  var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, `${shop}-${secret}`);
   hmac.update(momentF());
   var hash = hmac.finalize();
   return hash.toString();
@@ -49,14 +50,12 @@ function handler() {
   const arrayUrl = route.split('/');
 
   const shop = Shopify.shop;
-
+  const shopName = shop.split('.')[0];
 
   console.log('Funcionando el script');
   console.log(Shopify)
 
   if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
-
-    const shopName = shop.split('.')[0];
     const order_id = Shopify.checkout.order_id;
     const timestamp = moment().toISOString()
 
@@ -127,7 +126,7 @@ function handler() {
 
           const handlePostInfo = async () => {
             try {
-              console.log('Mandando la información a globalID', shop, route);
+              console.log('Mandando la información a globalID', window.location.href);
               window.localStorage.setItem('link', window.location.href);
               const state = `${shopName}__${orderId}`;
               window.location.replace(`https://connect.globalid.dev/?client_id=fd61f598-aeca-47a1-b379-d1356e4ecc50&response_type=code&scope=openid&redirect_uri=https://apps.globalid.dev/v1/shopify-plugin/order/add&login=false&acrc_id=86db6c94-443d-44af-ad9a-fa9e0eb3e1d2&state=${state}&nonce=<INSERT_NONCE_HERE>&document_id=tos pp`);

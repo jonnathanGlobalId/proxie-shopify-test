@@ -21,7 +21,7 @@ exports.createOwner = async (req, res) => {
 
 exports.getSettingsOwner = async (req, res) => {
   const settings = req.params;
-  console.log(req);
+  console.log(req.query);
   try {
     const ownerShop = await Owner.findOne({owner_id: settings.id});
     if (!ownerShop) {
