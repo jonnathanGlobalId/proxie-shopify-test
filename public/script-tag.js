@@ -128,7 +128,8 @@ function handler() {
             try {
               console.log('Mandando la información a globalID', window.location.href);
               window.localStorage.setItem('link', window.location.href);
-              const state = `${shopName}__${orderId}`;
+              const order_id = Shopify.checkout.order_id;
+              const state = `${shopName}__${order_id}`;
               window.location.replace(`https://connect.globalid.dev/?client_id=fd61f598-aeca-47a1-b379-d1356e4ecc50&response_type=code&scope=openid&redirect_uri=https://apps.globalid.dev/v1/shopify-plugin/order/add&login=false&acrc_id=86db6c94-443d-44af-ad9a-fa9e0eb3e1d2&state=${state}&nonce=<INSERT_NONCE_HERE>&document_id=tos pp`);
             } catch (error) {
               console.log(error);
