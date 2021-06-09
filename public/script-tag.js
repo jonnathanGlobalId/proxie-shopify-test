@@ -34,8 +34,8 @@ function cryptoF(shop, order_id) {
 }
 
 function handler() {
-  const hashFunction = cryptoF();
-  console.log('Listo desde la funcion principal', hashFunction());
+  
+  console.log('Listo desde la funcion principal', cryptoF('1728', '1293930'));
 
   const body = $('body');
   const content = $('.content');
