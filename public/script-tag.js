@@ -27,7 +27,7 @@ function momentF() {
 }
 
 function cryptoF(shop, order_id) {
-  var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, "Secret Passphrase");
+  var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, `${shop}__${order_id}`);
   hmac.update(momentF());
   var hash = hmac.finalize();
   return hash.toString();
@@ -56,7 +56,7 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  fetch(`https://shopify-fake-api.herokuapp.com/api/user-settings-owner/56128372888`)
+  fetch(`http://localhost:8080/api/user-settings-owner/56128372888`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
