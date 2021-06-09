@@ -34,8 +34,6 @@ function cryptoF(shop, order_id) {
 }
 
 function handler() {
-  
-  console.log('Listo desde la funcion principal', cryptoF('1728', '1293930'));
 
   const body = $('body');
   const content = $('.content');
@@ -69,22 +67,16 @@ function handler() {
     if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
         console.log('Desde la función', settings);
         console.log('Tenemos informacion del checkout');
-        const address = Shopify.checkout.billing_address.address1 !== Shopify.checkout.shipping_address.address1 && settings?.settings?.address;
-        const ammount = Number(Shopify.checkout.subtotal_price) >= settings.limit_ammount && settings?.settings?.ammount;
+        const address = Shopify.checkout.billing_address.address1 !== Shopify.checkout.shipping_address.address1 && settings?.different_address_enabled;
+        const ammount = Number(Shopify.checkout.subtotal_price) >= settings.order_amount_limit_enabled && settings?.order_amount_limit;
         const customerName = Shopify?.checkout?.billing_address?.first_name;
 
         if (address || ammount) {
-          const createOrder = async () => {
-            try {
-              // fetch('http://localhost:8080/api/create-order', {
-              //   method: 'POST',
-              // })
-              console.log('Intentando mandar la order')
-            } catch (error) {
-              console.log(error);
-            }
+          const createOrder = () => {
+            const shopName = shop.split('.')[0];
+            console.log(shopName);
+            console.log('Información del hmac', cryptoF(shopName, Shopify.checkout.order_id));
           }
-          createOrder();
       
           const contentSquare = $(
             `<div />`
@@ -144,7 +136,7 @@ function handler() {
 
           //Función para redireccionar a pagina de globalID
           const buttonGlobal = document.querySelector('#globalBtn');
-          buttonGlobal.addEventListener('click', () => handlePostInfo());
+          buttonGlobal.addEventListener('click', () => createOrder());
 
         }
       }
