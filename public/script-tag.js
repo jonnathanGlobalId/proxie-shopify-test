@@ -57,9 +57,7 @@ function handler() {
 
   if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
     const order_id = Shopify.checkout.order_id;
-    const timestamp = moment().toISOString()
-
-    fetch(`http://localhost:8080/api/user-settings-owner/56128372888?shop=${shop}&hmac=${cryptoF(shopName, order_id)}&timestamp=${timestamp}`)
+    fetch(`http://localhost:8080/api/user-settings-owner/56128372888?shop=${shop}&hmac=${cryptoF(shopName, order_id)}&timestamp=${momentF()}`)
     .then((res) => res.json())
     .then((data) => {
       templateSettings(data.data);
