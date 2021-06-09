@@ -54,22 +54,24 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
+  if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
+
+    const shopName = shop.split('.')[0];
+    const order_id = Shopify.checkout.order_id;
+    const timestamp = moment().toISOString()
+
+    fetch(`http://localhost:8080/api/user-settings-owner/56128372888?shop=${shop}&hmac=${cryptoF(shopName, order_id)}&timestamp=${timestamp}`)
+    .then((res) => res.json())
+    .then((data) => {
+      templateSettings(data.data);
+    })
+    .catch(e => console.log(e));
+  }
+
 
   const templateSettings = (settings) => {
     if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
-      
-      const shopName = shop.split('.')[0];
-      const order_id = Shopify.checkout.order_id;
-      const timestamp = moment().toISOString()
     
-      fetch(`http://localhost:8080/api/user-settings-owner/56128372888?shop=${shop}&hmac=${cryptoF(shopName, order_id)}&timestamp=${timestamp}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        templateSettings(data.data);
-      })
-      .catch(e => console.log(e));
-
         console.log('Desde la función', settings);
         console.log('Tenemos informacion del checkout');
         const address = Shopify.checkout.billing_address.address1 !== Shopify.checkout.shipping_address.address1 && settings?.different_address_enabled;
@@ -136,7 +138,7 @@ function handler() {
 
           //Función para redireccionar a pagina de globalID
           const buttonGlobal = document.querySelector('#globalBtn');
-          buttonGlobal.addEventListener('click', () => createOrder());
+          buttonGlobal.addEventListener('click', () => handlePostInfo());
 
         }
       }
