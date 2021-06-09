@@ -26,15 +26,16 @@ function momentF() {
   return epoch;
 }
 
-function cryptoF() {
+function cryptoF(shop, order_id) {
   var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, "Secret Passphrase");
   hmac.update(momentF());
   var hash = hmac.finalize();
-  console.log('informacion del hash', hash);
   return hash.toString();
 }
 
 function handler() {
+  const hashFunction = cryptoF();
+  console.log('Listo desde la funcion principal', hashFunction());
 
   const body = $('body');
   const content = $('.content');
@@ -55,7 +56,7 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  fetch(`https://shopify-fake-api.herokuapp.com/api/user-settings?shop=${shop}`)
+  fetch(`https://shopify-fake-api.herokuapp.com/api/user-settings-owner/56128372888`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
