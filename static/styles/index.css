@@ -32,11 +32,6 @@ p, li, a {
   text-align: center;
 }
 
-.container-details h4 {
-  
-}
-
-
 .button-redirect {    
   background-color: var(--main-color-blue);
   color: var(--main-color-white);
