@@ -4,35 +4,8 @@ const scriptJquery = document.createElement("script");
 scriptJquery.src = "https://code.jquery.com/jquery-3.4.1.min.js";
 scriptJquery.type = "text/javascript";
 
-// const scriptMoment = document.createElement("script");
-// scriptMoment.src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js";
-// scriptMoment.type = 'text/javascript';
-
-// const scriptCrypto = document.createElement("script");
-// scriptCrypto.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
-// scriptCrypto.type = 'text/javascript';
-
-// head.appendChild(scriptMoment);
-// head.appendChild(scriptCrypto);
 head.appendChild(scriptJquery);
-
-// scriptMoment.onload = momentF;
-// scriptCrypto.onload = cryptoF
 scriptJquery.onload = handler;
-
-// function momentF() {
-//   const epoch = (moment().unix()).toString();
-//   console.log('Información del epoch', epoch)
-//   return epoch;
-// }
-
-// function cryptoF(shop) {
-//   const secret = 'rOZsTzPpMLWJtFkG1I7PFpWTO9QSfL90';
-//   var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, `${shop}-${secret}`);
-//   hmac.update(momentF());
-//   var hash = hmac.finalize();
-//   return hash.toString();
-// }
 
 function handler() {
 
@@ -55,24 +28,29 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  // if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
-    // fetch(`https://api.globalid.dev/v1/shopify-plugin/condition?shop=${shopName}&hmac=${cryptoF(shopName)}&timestamp=${momentF()}`)
-    fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
-    // fetch('https://script.loca.lt/api/user-settings-owner/56128372888')
+  if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
+    fetch(`https://shopify-lt.loca.lt/configuration?shop=${shopName}`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
-      templateSettings(data.data);
+      templateSettings(data.settings);
     })
     .catch(e => console.log(e));
-  // }
+  }
 
 
   const templateSettings = (settings) => {
     console.log('Desde la función', settings);
     console.log('Tenemos informacion del checkout');
-    const address = Shopify.checkout.billing_address.address1 !== Shopify.checkout.shipping_address.address1 && settings?.different_address_enabled;
-    const ammount = Number(Shopify.checkout.subtotal_price) >= settings.order_amount_limit_enabled && settings?.order_amount_limit;
+    const ammountSettings = Number(settings.order_amount_limit);
+    const ammountEnable = settings.order_amount_limit_enabled;
+    const addressEnable = settings?.different_address_enabled;
+    console.log('Precio maximo', ammountSettings);
+    console.log('Costo disponible', ammountEnable);
+    console.log('Direccion disponible', addressEnable);
+
+    const address = Shopify.checkout.billing_address.address1 !== Shopify.checkout.shipping_address.address1 && addressEnable;
+    const ammount = Number(Shopify.checkout.subtotal_price) >= ammountSettings && ammountEnable;
     const customerName = Shopify?.checkout?.billing_address?.first_name;
 
     if (address || ammount) {
@@ -107,7 +85,7 @@ function handler() {
                 <button
                   id="globalBtn"
                   style="background-color: #2563eb; padding: 16px 0px; width: 100%; border-radius: 32px; color: white;">
-                Enviar a global id</button>
+                  Begin Verification</button>
             </div>
           </div>`
         ).css({
