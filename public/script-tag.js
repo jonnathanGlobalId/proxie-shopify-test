@@ -29,7 +29,7 @@ function handler() {
   console.log(Shopify)
 
   if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
-    fetch(`https://shopify-lt.loca.lt/configuration?shop=${shopName}`)
+    fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
