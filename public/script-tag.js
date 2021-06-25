@@ -28,6 +28,13 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
+  fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data);
+  })
+  .catch(e => console.log(e));
+
   if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
     fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
     .then((res) => res.json())
