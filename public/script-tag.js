@@ -4,35 +4,35 @@ const scriptJquery = document.createElement("script");
 scriptJquery.src = "https://code.jquery.com/jquery-3.4.1.min.js";
 scriptJquery.type = "text/javascript";
 
-const scriptMoment = document.createElement("script");
-scriptMoment.src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js";
-scriptMoment.type = 'text/javascript';
+// const scriptMoment = document.createElement("script");
+// scriptMoment.src = "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js";
+// scriptMoment.type = 'text/javascript';
 
-const scriptCrypto = document.createElement("script");
-scriptCrypto.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
-scriptCrypto.type = 'text/javascript';
+// const scriptCrypto = document.createElement("script");
+// scriptCrypto.src = "https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js";
+// scriptCrypto.type = 'text/javascript';
 
-head.appendChild(scriptMoment);
-head.appendChild(scriptCrypto);
+// head.appendChild(scriptMoment);
+// head.appendChild(scriptCrypto);
 head.appendChild(scriptJquery);
 
-scriptMoment.onload = momentF;
-scriptCrypto.onload = cryptoF
+// scriptMoment.onload = momentF;
+// scriptCrypto.onload = cryptoF
 scriptJquery.onload = handler;
 
-function momentF() {
-  const epoch = (moment().unix()).toString();
-  console.log('Información del epoch', epoch)
-  return epoch;
-}
+// function momentF() {
+//   const epoch = (moment().unix()).toString();
+//   console.log('Información del epoch', epoch)
+//   return epoch;
+// }
 
-function cryptoF(shop) {
-  const secret = 'ENCRYPTION_SECRET';
-  var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, `${shop}-${secret}`);
-  hmac.update(momentF());
-  var hash = hmac.finalize();
-  return hash.toString();
-}
+// function cryptoF(shop) {
+//   const secret = 'rOZsTzPpMLWJtFkG1I7PFpWTO9QSfL90';
+//   var hmac = CryptoJS.algo.HMAC.create(CryptoJS.algo.SHA256, `${shop}-${secret}`);
+//   hmac.update(momentF());
+//   var hash = hmac.finalize();
+//   return hash.toString();
+// }
 
 function handler() {
 
@@ -55,15 +55,17 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
-    const order_id = Shopify.checkout.order_id;
-    fetch(`http://localhost:8080/api/user-settings-owner/56128372888?shop=${shop}&hmac=${cryptoF(shopName, order_id)}&timestamp=${momentF()}`)
+  // if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
+    // fetch(`https://api.globalid.dev/v1/shopify-plugin/condition?shop=${shopName}&hmac=${cryptoF(shopName)}&timestamp=${momentF()}`)
+    fetch(`https://shopify-lt.loca.lt/configuration?shop=${shopName}`)
+    // fetch('https://script.loca.lt/api/user-settings-owner/56128372888')
     .then((res) => res.json())
     .then((data) => {
+      console.log(data);
       templateSettings(data.data);
     })
     .catch(e => console.log(e));
-  }
+  // }
 
 
   const templateSettings = (settings) => {
