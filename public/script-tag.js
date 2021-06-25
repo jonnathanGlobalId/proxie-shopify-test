@@ -57,7 +57,7 @@ function handler() {
 
   // if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
     // fetch(`https://api.globalid.dev/v1/shopify-plugin/condition?shop=${shopName}&hmac=${cryptoF(shopName)}&timestamp=${momentF()}`)
-    fetch(`https://shopify-fake-api.herokuapp.com/configuration?shop=${shopName}`)
+    fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
     // fetch('https://script.loca.lt/api/user-settings-owner/56128372888')
     .then((res) => res.json())
     .then((data) => {
