@@ -28,7 +28,7 @@ function handler() {
   console.log('Funcionando el script');
   console.log(Shopify)
 
-  fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
+  fetch(`https://jp-shopify-plugin.herokuapp.com/configuration?shop=${shopName}`)
   .then((res) => res.json())
   .then((data) => {
     console.log(data);
@@ -36,7 +36,7 @@ function handler() {
   .catch(e => console.log(e));
 
   if (Shopify?.checkout && arrayUrl.length > 2 && arrayUrl[2] === 'checkouts') {
-    fetch(`https://sheltered-inlet-53771.herokuapp.com/configuration?shop=${shopName}`)
+    fetch(`https://jp-shopify-plugin.herokuapp.com/configuration?shop=${shopName}`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -65,13 +65,13 @@ function handler() {
           `<div />`
           ).css({
             'height': '100vh',
-            'padding-top': '32px', 
-            'width': '100vw', 
-            'background-color': 'white', 
-            'position': 'absolute', 
+            'padding-top': '32px',
+            'width': '100vw',
+            'background-color': 'white',
+            'position': 'absolute',
             'z-index': '99',
         });
-      
+
         const infoUser = $(
           `<div>
             <div style="display: flex; flex-direction: column">
@@ -80,14 +80,14 @@ function handler() {
                 </h1>
                 <p style="text-align: center; font-size: 22px; margin-bottom: 24px">
                   ID Verification is required to complete this purchase.
-                </p> 
-                <p style="text-align: center; font-size: 22px; margin-bottom: 24px">
-                  This requirement is in place to protect you from credit-card 
-                  fraud and ensure you are eligible to purchase this product. 
                 </p>
                 <p style="text-align: center; font-size: 22px; margin-bottom: 24px">
-                  We partner with GlobaliD to keep your data private, secure and 
-                  in your control every step of the way. 
+                  This requirement is in place to protect you from credit-card
+                  fraud and ensure you are eligible to purchase this product.
+                </p>
+                <p style="text-align: center; font-size: 22px; margin-bottom: 24px">
+                  We partner with GlobaliD to keep your data private, secure and
+                  in your control every step of the way.
                 </p>
                 <button
                   id="globalBtn"
@@ -101,7 +101,7 @@ function handler() {
           'color': 'black',
           'padding': '0px 40px'
         });
-      
+
         content.append(contentSquare);
         contentSquare.append(infoUser);
 
